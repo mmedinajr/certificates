@@ -1,9 +1,22 @@
 <html>
 <head>
     <style>
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px 24px;
+            max-width: 1720px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+        .certificate-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .certificate-container {
             width: 800px;
-            margin: 40px auto;
+            margin: 0;
             padding: 0;
             background: #fff;
             position: relative;
@@ -53,7 +66,7 @@
         }
         .download-btn {
             display: block;
-            margin: 12px auto 40px auto;
+            margin: 12px auto 24px auto;
             padding: 8px 18px;
             background: #6a1b9a;
             color: #fff;
@@ -61,6 +74,24 @@
             border-radius: 6px;
             font-size: 1em;
             cursor: pointer;
+        }
+        @media (max-width: 1800px) {
+            .certificate-container {
+                width: 95vw;
+                max-width: 800px;
+            }
+            .certificates-grid {
+                max-width: 100vw;
+            }
+        }
+        @media (max-width: 900px) {
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+            .certificate-container {
+                width: 100%;
+                max-width: 100vw;
+            }
         }
     </style>
     <!-- html2canvas CDN for image download -->
@@ -80,303 +111,307 @@
 </head>
 <body style="background: #f5f5f5;">
 
-<!-- Certificate for Emeri Cayetano -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Emeri-Cayetano', 'Emeri_Cayetano')">Download Emeri Cayetano's Certificate</button>
-    <div class="certificate-container" id="cert-Emeri-Cayetano">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Emeri Cayetano</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="certificates-grid">
 
-<!-- Certificate for Anthony Bautista -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Anthony-Bautista', 'Anthony_Bautista')">Download Anthony Bautista's Certificate</button>
-    <div class="certificate-container" id="cert-Anthony-Bautista">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Anthony Bautista</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Emeri Cayetano -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Emeri-Cayetano', 'Emeri_Cayetano')">Download Emeri Cayetano's Certificate</button>
+        <div class="certificate-container" id="cert-Emeri-Cayetano">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Emeri Cayetano</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Ina Iris Sanchez -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Ina-Iris-Sanchez', 'Ina_Iris_Sanchez')">Download Ina Iris Sanchez's Certificate</button>
-    <div class="certificate-container" id="cert-Ina-Iris-Sanchez">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Ina Iris Sanchez</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Anthony Bautista -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Anthony-Bautista', 'Anthony_Bautista')">Download Anthony Bautista's Certificate</button>
+        <div class="certificate-container" id="cert-Anthony-Bautista">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Anthony Bautista</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Matthew Ara -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Matthew-Ara', 'Matthew_Ara')">Download Matthew Ara's Certificate</button>
-    <div class="certificate-container" id="cert-Matthew-Ara">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Matthew Ara</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Ina Iris Sanchez -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Ina-Iris-Sanchez', 'Ina_Iris_Sanchez')">Download Ina Iris Sanchez's Certificate</button>
+        <div class="certificate-container" id="cert-Ina-Iris-Sanchez">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Ina Iris Sanchez</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Steven Lewis -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Steven-Lewis', 'Steven_Lewis')">Download Steven Lewis's Certificate</button>
-    <div class="certificate-container" id="cert-Steven-Lewis">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Steven Lewis</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Matthew Ara -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Matthew-Ara', 'Matthew_Ara')">Download Matthew Ara's Certificate</button>
+        <div class="certificate-container" id="cert-Matthew-Ara">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Matthew Ara</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Amir Juarez -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Amir-Juarez', 'Amir_Juarez')">Download Amir Juarez's Certificate</button>
-    <div class="certificate-container" id="cert-Amir-Juarez">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Amir Juarez</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Steven Lewis -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Steven-Lewis', 'Steven_Lewis')">Download Steven Lewis's Certificate</button>
+        <div class="certificate-container" id="cert-Steven-Lewis">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Steven Lewis</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Arlenie Rogers -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Arlenie-Rogers', 'Arlenie_Rogers')">Download Arlenie Rogers's Certificate</button>
-    <div class="certificate-container" id="cert-Arlenie-Rogers">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Arlenie Rogers</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Amir Juarez -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Amir-Juarez', 'Amir_Juarez')">Download Amir Juarez's Certificate</button>
+        <div class="certificate-container" id="cert-Amir-Juarez">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Amir Juarez</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Dion Daniels -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Dion-Daniels', 'Dion_Daniels')">Download Dion Daniels's Certificate</button>
-    <div class="certificate-container" id="cert-Dion-Daniels">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Dion Daniels</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Arlenie Rogers -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Arlenie-Rogers', 'Arlenie_Rogers')">Download Arlenie Rogers's Certificate</button>
+        <div class="certificate-container" id="cert-Arlenie-Rogers">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Arlenie Rogers</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Antonio Cano -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Antonio-Cano', 'Antonio_Cano')">Download Antonio Cano's Certificate</button>
-    <div class="certificate-container" id="cert-Antonio-Cano">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Antonio Cano</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Dion Daniels -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Dion-Daniels', 'Dion_Daniels')">Download Dion Daniels's Certificate</button>
+        <div class="certificate-container" id="cert-Dion-Daniels">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Dion Daniels</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Manuel Garcia -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Manuel-Garcia', 'Manuel_Garcia')">Download Manuel Garcia's Certificate</button>
-    <div class="certificate-container" id="cert-Manuel-Garcia">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Manuel Garcia</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Antonio Cano -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Antonio-Cano', 'Antonio_Cano')">Download Antonio Cano's Certificate</button>
+        <div class="certificate-container" id="cert-Antonio-Cano">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Antonio Cano</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Juliane Pasos -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Juliane-Pasos', 'Juliane_Pasos')">Download Juliane Pasos's Certificate</button>
-    <div class="certificate-container" id="cert-Juliane-Pasos">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Juliane Pasos</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Manuel Garcia -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Manuel-Garcia', 'Manuel_Garcia')">Download Manuel Garcia's Certificate</button>
+        <div class="certificate-container" id="cert-Manuel-Garcia">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Manuel Garcia</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for Lloyd Augustine -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-Lloyd-Augustine', 'Lloyd_Augustine')">Download Lloyd Augustine's Certificate</button>
-    <div class="certificate-container" id="cert-Lloyd-Augustine">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">Lloyd Augustine</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Juliane Pasos -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Juliane-Pasos', 'Juliane_Pasos')">Download Juliane Pasos's Certificate</button>
+        <div class="certificate-container" id="cert-Juliane-Pasos">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Juliane Pasos</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Certificate for David Robertson -->
-<div>
-    <button class="download-btn" onclick="downloadCertificate('cert-David-Robertson', 'David_Robertson')">Download David Robertson's Certificate</button>
-    <div class="certificate-container" id="cert-David-Robertson">
-        <div class="certificate-border">
-            <div class="certificate-inner-border">
-                <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                <div class="certificate-title">Certificate of Participation</div>
-                <div class="certificate-body">
-                    This is to certify that<br>
-                    <span class="certificate-name">David Robertson</span><br>
-                    has successfully participated in the training entitled<br>
-                    <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                    held on <b>June 3, 2025</b>.
-                </div>
-                <div class="certificate-footer">
-                    Facilitator: <b>Mr. Manuel Medina Jr.</b>
+    <!-- Certificate for Lloyd Augustine -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-Lloyd-Augustine', 'Lloyd_Augustine')">Download Lloyd Augustine's Certificate</button>
+        <div class="certificate-container" id="cert-Lloyd-Augustine">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">Lloyd Augustine</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Certificate for David Robertson -->
+    <div class="certificate-wrapper">
+        <button class="download-btn" onclick="downloadCertificate('cert-David-Robertson', 'David_Robertson')">Download David Robertson's Certificate</button>
+        <div class="certificate-container" id="cert-David-Robertson">
+            <div class="certificate-border">
+                <div class="certificate-inner-border">
+                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                    <div class="certificate-title">Certificate of Participation</div>
+                    <div class="certificate-body">
+                        This is to certify that<br>
+                        <span class="certificate-name">David Robertson</span><br>
+                        has successfully participated in the training entitled<br>
+                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
+                        held on <b>June 3, 2025</b>.
+                    </div>
+                    <div class="certificate-footer">
+                        Facilitator: <b>Mr. Manuel Medina Jr.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>
