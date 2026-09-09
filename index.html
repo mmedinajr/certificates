@@ -6,10 +6,31 @@
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Birthstone&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --ink: #243447;
+            --navy: #12304a;
+            --teal: #0f766e;
+            --gold: #c89b3c;
+            --paper: #fffdf8;
+            --page: #e9f0f2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            background: radial-gradient(circle at top, #ffffff 0, var(--page) 62%, #d8e4e7 100%);
+            color: var(--ink);
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
         .certificates-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px 24px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 44px 28px;
             max-width: 1720px;
             margin: 40px auto;
             padding: 0 16px;
@@ -23,46 +44,50 @@
             width: 800px;
             margin: 0;
             padding: 0;
-            background: #fff;
+            background: var(--paper);
             position: relative;
-            box-sizing: border-box;
+            box-shadow: 0 14px 30px rgba(18, 48, 74, 0.14);
         }
         .certificate-border {
-            border: 6px double #6a1b9a; /* Purple outer border */
-            padding: 24px; /* Increased padding for whitespace */
-            border-radius: 0; /* <-- Straight edges */
+            border: 12px solid var(--navy);
+            outline: 2px solid var(--gold);
+            outline-offset: -20px;
+            padding: 28px;
+            border-radius: 4px;
             background-clip: padding-box;
             position: relative;
         }
         .certificate-inner-border {
-            border: 4px solid #ffd700; /* Gold inner border */
-            padding: 30px 20px;
-            border-radius: 12px;
+            border: 2px solid var(--teal);
+            padding: 34px 24px;
+            border-radius: 2px;
+            background: linear-gradient(135deg, rgba(200, 155, 60, 0.08), transparent 30%, rgba(15, 118, 110, 0.05));
             background-clip: padding-box;
         }
         .certificate-logo {
             display: block;
-            margin: 0 auto 30px auto;
-            width: 160px;
+            margin: 0 auto 26px auto;
+            width: 145px;
             height: auto;
         }
         .certificate-title {
             text-align: center;
-            font-size: 2.1em;
+            font-size: 2em;
             font-weight: bold;
-            margin-bottom: 18px;
-            color: #6a1b9a;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+            color: var(--navy);
         }
         .certificate-body {
             text-align: center;
-            font-size: 1.25em;
+            font-size: 1.2em;
             margin-bottom: 30px;
         }
         .certificate-name {
             font-family: 'Birthstone', cursive;
-            font-size: 3.5em; /* doubled from 2em to 4em */
+            font-size: 3.5em;
             font-weight: bold;
-            color: #333333;
+            color: var(--teal);
             margin: 18px 0;
         }
         .certificate-footer {
@@ -74,12 +99,17 @@
             display: block;
             margin: 12px auto 24px auto;
             padding: 8px 18px;
-            background: #6a1b9a;
+            background: var(--navy);
             color: #fff;
             border: none;
-            border-radius: 6px;
+            border-radius: 3px;
             font-size: 1em;
             cursor: pointer;
+        }
+
+        .download-btn:hover,
+        .download-btn:focus-visible {
+            background: var(--teal);
         }
         .signature {
             font-family: 'Great Vibes', cursive;
@@ -136,8 +166,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Emeri Cayetano</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -159,8 +189,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Anthony Bautista</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -182,8 +212,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Ina Iris Sanchez</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -205,8 +235,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Matthew Ara</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -228,8 +258,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Steven Lewis</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -251,8 +281,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Amir Juarez</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -274,8 +304,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Arlenie Rogers</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -297,8 +327,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Dion Daniels</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -320,8 +350,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Manuel Garcia</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -343,8 +373,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Juliane Pasos</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -366,8 +396,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Lloyd Augustine</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -389,8 +419,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">David Robertson</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -412,8 +442,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Lorenzo Maldonado</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -435,8 +465,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Alex Moralez</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -458,8 +488,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Ainsley Ferguson</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -481,8 +511,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Monica Hua</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -504,8 +534,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Fay Ita Garnett</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -527,8 +557,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Melissa Robinson</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -550,8 +580,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Jeovan Iglesias</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
@@ -573,8 +603,8 @@
                         This is to certify that<br>
                         <span class="certificate-name">Adrian Avilez</span><br>
                         has successfully participated in the training entitled<br>
-                        <b>"Use of Artificial Intelligence for Faculty as an Efficiency Tool"</b><br>
-                        held on <b>June 3, 2025</b>.
+                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
                         Facilitator: <b class="signature">Manuel Medina Jr.</b>
