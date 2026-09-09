@@ -7,12 +7,20 @@
     <link href="https://fonts.googleapis.com/css?family=Birthstone&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #243447;
-            --navy: #12304a;
-            --teal: #0f766e;
-            --gold: #c89b3c;
-            --paper: #fffdf8;
-            --page: #e9f0f2;
+            --ink: #1d1d1d;
+            --navy: #692584;
+            --teal: #f5b51b;
+            --gold: #f5b51b;
+            --paper: #fffefa;
+            --page: #f4edf7;
+            --certificate-navy: #12304a;
+            --certificate-teal: #0f766e;
+            --certificate-gold: #c89b3c;
+            --certificate-paper: #ffffff;
+            --google-blue: #4285f4;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc05;
+            --google-green: #34a853;
         }
 
         * {
@@ -22,13 +30,13 @@
         body {
             margin: 0;
             min-width: 320px;
-            background: radial-gradient(circle at top, #ffffff 0, var(--page) 62%, #d8e4e7 100%);
+            background: radial-gradient(circle at top, #ffffff 0, var(--page) 62%, #e5d4eb 100%);
             color: var(--ink);
             font-family: Georgia, 'Times New Roman', serif;
         }
 
         .certificates-grid {
-            display: grid;
+            display: none;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 44px 28px;
             max-width: 1720px;
@@ -37,37 +45,134 @@
         }
         .certificate-wrapper {
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             align-items: center;
+        }
+        .lookup-shell {
+            width: min(680px, calc(100% - 32px));
+            margin: 72px auto 32px;
+            text-align: center;
+        }
+        .lookup-kicker {
+            margin: 0 0 10px;
+            color: var(--teal);
+            font-size: 0.82em;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .lookup-title {
+            margin: 0;
+            color: var(--navy);
+            font-size: clamp(2em, 5vw, 3.5em);
+        }
+        .lookup-description {
+            margin: 14px auto 26px;
+            color: #506170;
+            font-size: 1.08em;
+        }
+        .lookup-form {
+            display: flex;
+            gap: 10px;
+            padding: 8px;
+            background: rgba(255, 254, 250, 0.92);
+            border: 1px solid rgba(105, 37, 132, 0.18);
+            border-radius: 4px;
+            box-shadow: 0 10px 24px rgba(105, 37, 132, 0.12);
+        }
+        .lookup-input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px 16px;
+            border: 1px solid #c3d0d3;
+            border-radius: 3px;
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+            font-size: 1em;
+        }
+        .lookup-input:focus {
+            border-color: var(--gold);
+            outline: 3px solid rgba(245, 181, 27, 0.2);
+        }
+        .lookup-results {
+            display: grid;
+            gap: 8px;
+            margin-top: 16px;
+            text-align: left;
+        }
+        .name-option {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid rgba(105, 37, 132, 0.14);
+            border-radius: 3px;
+            background: rgba(255, 254, 250, 0.94);
+            color: var(--navy);
+            cursor: pointer;
+            font: inherit;
+            text-align: left;
+        }
+        .name-option:hover,
+        .name-option:focus-visible {
+            border-color: var(--gold);
+            background: #fff;
+        }
+        .lookup-status {
+            min-height: 1.4em;
+            margin: 14px 0 0;
+            color: #61717b;
+        }
+        .selected-certificate {
+            display: none;
+            margin: 0 auto 60px;
+            width: min(800px, calc(100% - 32px));
+        }
+        .selected-certificate .certificate-wrapper {
+            display: flex;
+        }
+        .selected-certificate .certificate-container {
+            width: 100%;
+        }
+        .reset-btn {
+            display: block;
+            margin: 18px auto 28px;
+            border: 0;
+            background: transparent;
+            color: var(--navy);
+            cursor: pointer;
+            font: inherit;
+            text-decoration: underline;
         }
         .certificate-container {
             width: 800px;
             margin: 0;
             padding: 0;
-            background: var(--paper);
+            background: var(--certificate-paper);
             position: relative;
             box-shadow: 0 14px 30px rgba(18, 48, 74, 0.14);
         }
         .certificate-border {
-            border: 12px solid var(--navy);
-            outline: 2px solid var(--gold);
-            outline-offset: -20px;
+            border: 12px solid;
+            border-top-color: var(--google-blue);
+            border-right-color: var(--google-red);
+            border-bottom-color: var(--google-yellow);
+            border-left-color: var(--google-green);
             padding: 28px;
             border-radius: 4px;
             background-clip: padding-box;
             position: relative;
         }
         .certificate-inner-border {
-            border: 2px solid var(--teal);
+            border: 2px solid var(--google-blue);
             padding: 34px 24px;
             border-radius: 2px;
-            background: linear-gradient(135deg, rgba(200, 155, 60, 0.08), transparent 30%, rgba(15, 118, 110, 0.05));
+            background: #ffffff;
             background-clip: padding-box;
         }
         .certificate-logo {
             display: block;
             margin: 0 auto 26px auto;
-            width: 145px;
+            width: 210px;
             height: auto;
         }
         .certificate-title {
@@ -76,30 +181,63 @@
             font-weight: bold;
             letter-spacing: 0.08em;
             margin-bottom: 20px;
-            color: var(--navy);
+            color: var(--certificate-navy);
         }
         .certificate-body {
             text-align: center;
             font-size: 1.2em;
-            margin-bottom: 30px;
+            margin-bottom: 1px;
         }
         .certificate-name {
             font-family: 'Birthstone', cursive;
             font-size: 3.5em;
             font-weight: bold;
-            color: var(--teal);
+            color: var(--certificate-navy);
             margin: 18px 0;
+            display: inline-block;
+            padding-bottom: 0px;
+            position: relative;
+        }
+        .certificate-name::after {
+            content: '';
+            position: absolute;
+            left: -20%;
+            right: -20%;
+            bottom: 0;
+            height: 1px;
+            background: #000;
         }
         .certificate-footer {
             text-align: center;
-            margin-top: 35px;
+            margin-top: 0px;
             font-size: 1.1em;
+        }
+        .trainer-signature {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 280px;
+        }
+        .trainer-signature img {
+            display: block;
+            width: 180px;
+            height: auto;
+            margin-bottom: -8px;
+        }
+        .trainer-line {
+            width: 100%;
+            padding-top: 4px;
+            border-top: 1px solid #222;
+            color: var(--certificate-navy);
+        }
+        .trainer-label {
+            font-weight: bold;
         }
         .download-btn {
             display: block;
             margin: 12px auto 24px auto;
             padding: 8px 18px;
-            background: var(--navy);
+            background: var(--certificate-navy);
             color: #fff;
             border: none;
             border-radius: 3px;
@@ -109,12 +247,13 @@
 
         .download-btn:hover,
         .download-btn:focus-visible {
-            background: var(--teal);
+            background: var(--certificate-teal);
         }
         .signature {
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.3em;
-            color: #333;
+            display: inline-block;
+            width: 180px;
+            height: auto;
+            vertical-align: bottom;
         }
         @media (max-width: 1800px) {
             .certificate-container {
@@ -126,12 +265,15 @@
             }
         }
         @media (max-width: 900px) {
-            .certificates-grid {
-                grid-template-columns: 1fr;
-            }
             .certificate-container {
                 width: 100%;
                 max-width: 100vw;
+            }
+            .lookup-shell {
+                margin-top: 42px;
+            }
+            .lookup-form {
+                flex-direction: column;
             }
         }
     </style>
@@ -141,16 +283,102 @@
         function downloadCertificate(id, name) {
             // Select only the certificate-border for download
             const certDiv = document.querySelector(`#${id} .certificate-border`);
-            html2canvas(certDiv, { scale: 2 }).then(canvas => {
+            const scale = 2;
+            html2canvas(certDiv, { scale }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = name + '_Certificate.png';
                 link.href = canvas.toDataURL();
                 link.click();
             });
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('.certificates-grid');
+            const lookupInput = document.querySelector('.lookup-input');
+            const results = document.querySelector('.lookup-results');
+            const status = document.querySelector('.lookup-status');
+            const selectedArea = document.querySelector('.selected-certificate');
+            const resetButton = document.querySelector('.reset-btn');
+            const certificates = [...grid.querySelectorAll('.certificate-wrapper')].map(wrapper => ({
+                name: wrapper.querySelector('.certificate-name').textContent.trim(),
+                wrapper
+            }));
+
+            function renderResults(query = '') {
+                const normalizedQuery = query.trim().toLowerCase();
+                const matches = certificates.filter(certificate =>
+                    certificate.name.toLowerCase().includes(normalizedQuery)
+                );
+
+                results.innerHTML = '';
+                if (!normalizedQuery) {
+                    status.textContent = 'Enter a participant name to search';
+                    return;
+                }
+
+                matches.forEach(certificate => {
+                    const option = document.createElement('button');
+                    option.className = 'name-option';
+                    option.type = 'button';
+                    option.textContent = certificate.name;
+                    option.addEventListener('click', () => selectCertificate(certificate));
+                    results.appendChild(option);
+                });
+
+                status.textContent = normalizedQuery
+                    ? `${matches.length} certificate${matches.length === 1 ? '' : 's'} found`
+                    : 'Select a name to view its certificate';
+            }
+
+            function selectCertificate(certificate) {
+                selectedArea.appendChild(certificate.wrapper);
+                selectedArea.style.display = 'block';
+                results.innerHTML = '';
+                status.textContent = `Certificate ready for ${certificate.name}`;
+                lookupInput.value = certificate.name;
+                lookupInput.setAttribute('aria-label', `Selected certificate for ${certificate.name}`);
+                selectedArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function clearSelectedCertificate() {
+                const wrapper = selectedArea.querySelector('.certificate-wrapper');
+                if (wrapper) {
+                    grid.appendChild(wrapper);
+                }
+                selectedArea.style.display = 'none';
+                lookupInput.value = '';
+                lookupInput.setAttribute('aria-label', 'Search participant name');
+                renderResults();
+            }
+
+            lookupInput.addEventListener('input', event => renderResults(event.target.value));
+            lookupInput.addEventListener('focus', clearSelectedCertificate);
+            resetButton.addEventListener('click', () => {
+                clearSelectedCertificate();
+                lookupInput.focus();
+            });
+
+            renderResults();
+        });
     </script>
 </head>
-<body style="background: #f5f5f5;">
+<body>
+
+<main>
+    <section class="lookup-shell" aria-labelledby="lookup-title">
+        <p class="lookup-kicker">Certificate verification</p>
+        <h1 class="lookup-title" id="lookup-title">Find your certificate</h1>
+        <p class="lookup-description">Search your name below to view and download your Google Workspace training certificate.</p>
+        <div class="lookup-form">
+            <input class="lookup-input" type="search" placeholder="Search participant name" aria-label="Search participant name" autocomplete="off">
+        </div>
+        <div class="lookup-results" aria-live="polite"></div>
+        <p class="lookup-status" aria-live="polite"></p>
+    </section>
+
+    <section class="selected-certificate" aria-label="Selected certificate">
+        <button class="reset-btn" type="button">Search for another name</button>
+    </section>
 
 <div class="certificates-grid">
 
@@ -165,12 +393,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Emeri Cayetano</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -188,12 +419,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Anthony Bautista</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,12 +445,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Ina Iris Sanchez</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -234,12 +471,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Matthew Ara</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -257,12 +497,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Steven Lewis</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -280,12 +523,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Amir Juarez</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -303,12 +549,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Arlenie Rogers</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -326,12 +575,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Dion Daniels</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -349,12 +601,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Manuel Garcia</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -372,12 +627,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Juliane Pasos</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -395,12 +653,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Lloyd Augustine</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -418,12 +679,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">David Robertson</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -441,12 +705,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Lorenzo Maldonado</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -464,12 +731,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Alex Moralez</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -487,12 +757,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Ainsley Ferguson</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -510,12 +783,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Monica Hua</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -533,12 +809,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Fay Ita Garnett</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -556,12 +835,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Melissa Robinson</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -579,12 +861,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Jeovan Iglesias</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -602,12 +887,15 @@
                     <div class="certificate-body">
                         This is to certify that<br>
                         <span class="certificate-name">Adrian Avilez</span><br>
-                        has successfully participated in the training entitled<br>
-                        <b>"ICT Google Workspace Training with Gemini AI"</b><br>
+                        has successfully completed the training entitled<br>
+                        <b>ICT Google Workspace Training with Gemini AI</b><br>
                         held on <b>September 11th, 2026</b>.
                     </div>
                     <div class="certificate-footer">
-                        Facilitator: <b class="signature">Manuel Medina Jr.</b>
+                        <div class="trainer-signature">
+                            <img src="img/sign3.PNG" alt="Trainer signature">
+                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                        </div>
                     </div>
                 </div>
             </div>
