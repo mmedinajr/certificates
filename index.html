@@ -380,7 +380,6 @@
                     grid.innerHTML = '';
                     certificates.forEach(({ wrapper }) => grid.appendChild(wrapper));
                     renderResults();
-                    status.textContent = `${certificates.length} certificates loaded from the participant list`;
                 } catch (error) {
                     console.error(error);
                     status.textContent = 'Unable to load the participant list. Please check the CSV file.';
