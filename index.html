@@ -292,17 +292,100 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             const grid = document.querySelector('.certificates-grid');
             const lookupInput = document.querySelector('.lookup-input');
             const results = document.querySelector('.lookup-results');
             const status = document.querySelector('.lookup-status');
             const selectedArea = document.querySelector('.selected-certificate');
             const resetButton = document.querySelector('.reset-btn');
-            const certificates = [...grid.querySelectorAll('.certificate-wrapper')].map(wrapper => ({
-                name: wrapper.querySelector('.certificate-name').textContent.trim(),
-                wrapper
-            }));
+            let certificates = [];
+
+            function normalizeName(name) {
+                return name
+                    .replace(/^"|"$/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
+
+            function getCertificateId(name) {
+                return name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+            }
+
+            function getPossessiveName(name) {
+                return /s$/i.test(name) ? `${name}'` : `${name}'s`;
+            }
+
+            function buildCertificate(name) {
+                const certId = getCertificateId(name);
+                const wrapper = document.createElement('div');
+                wrapper.className = 'certificate-wrapper';
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'download-btn';
+                button.textContent = `Download ${getPossessiveName(name)} Certificate`;
+                button.addEventListener('click', () => downloadCertificate(certId, certId));
+
+                const container = document.createElement('div');
+                container.className = 'certificate-container';
+                container.id = `cert-${certId}`;
+                container.innerHTML = `
+                    <div class="certificate-border">
+                        <div class="certificate-inner-border">
+                            <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
+                            <div class="certificate-title">Certificate of Participation</div>
+                            <div class="certificate-body">
+                                This is to certify that<br>
+                                <span class="certificate-name">${name}</span><br>
+                                has successfully completed the training entitled<br>
+                                <b>ICT Google Workspace Training with Gemini AI</b><br>
+                                held on <b>September 11th, 2026</b>.
+                            </div>
+                            <div class="certificate-footer">
+                                <div class="trainer-signature">
+                                    <img src="img/sign3.PNG" alt="Trainer signature">
+                                    <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                wrapper.appendChild(button);
+                wrapper.appendChild(container);
+
+                return { name, wrapper };
+            }
+
+            async function loadCertificates() {
+                try {
+                    const response = await fetch('data/ParticipantList26S1.csv');
+                    if (!response.ok) {
+                        throw new Error(`CSV fetch failed: ${response.status}`);
+                    }
+
+                    const csvText = await response.text();
+                    const uniqueNames = [...new Set(
+                        csvText
+                            .split(/\r?\n/)
+                            .map(normalizeName)
+                            .filter(Boolean)
+                    )];
+
+                    certificates = uniqueNames.map(buildCertificate);
+                    grid.innerHTML = '';
+                    certificates.forEach(({ wrapper }) => grid.appendChild(wrapper));
+                    renderResults();
+                    status.textContent = `${certificates.length} certificates loaded from the participant list`;
+                } catch (error) {
+                    console.error(error);
+                    status.textContent = 'Unable to load the participant list. Please check the CSV file.';
+                }
+            }
 
             function renderResults(query = '') {
                 const normalizedQuery = query.trim().toLowerCase();
@@ -325,9 +408,7 @@
                     results.appendChild(option);
                 });
 
-                status.textContent = normalizedQuery
-                    ? `${matches.length} certificate${matches.length === 1 ? '' : 's'} found`
-                    : 'Select a name to view its certificate';
+                status.textContent = `${matches.length} certificate${matches.length === 1 ? '' : 's'} found`;
             }
 
             function selectCertificate(certificate) {
@@ -358,7 +439,7 @@
                 lookupInput.focus();
             });
 
-            renderResults();
+            await loadCertificates();
         });
     </script>
 </head>
@@ -380,529 +461,7 @@
         <button class="reset-btn" type="button">Search for another name</button>
     </section>
 
-<div class="certificates-grid">
-
-    <!-- Certificate for Emeri Cayetano -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Emeri-Cayetano', 'Emeri_Cayetano')">Download Emeri Cayetano's Certificate</button>
-        <div class="certificate-container" id="cert-Emeri-Cayetano">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Emeri Cayetano</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Anthony Bautista -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Anthony-Bautista', 'Anthony_Bautista')">Download Anthony Bautista's Certificate</button>
-        <div class="certificate-container" id="cert-Anthony-Bautista">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Anthony Bautista</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Ina Iris Sanchez -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Ina-Iris-Sanchez', 'Ina_Iris_Sanchez')">Download Ina Iris Sanchez's Certificate</button>
-        <div class="certificate-container" id="cert-Ina-Iris-Sanchez">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Ina Iris Sanchez</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Matthew Ara -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Matthew-Ara', 'Matthew_Ara')">Download Matthew Ara's Certificate</button>
-        <div class="certificate-container" id="cert-Matthew-Ara">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Matthew Ara</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Steven Lewis -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Steven-Lewis', 'Steven_Lewis')">Download Steven Lewis's Certificate</button>
-        <div class="certificate-container" id="cert-Steven-Lewis">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Steven Lewis</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Amir Juarez -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Amir-Juarez', 'Amir_Juarez')">Download Amir Juarez's Certificate</button>
-        <div class="certificate-container" id="cert-Amir-Juarez">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Amir Juarez</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Arlenie Rogers -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Arlenie-Rogers', 'Arlenie_Rogers')">Download Arlenie Rogers's Certificate</button>
-        <div class="certificate-container" id="cert-Arlenie-Rogers">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Arlenie Rogers</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Dion Daniels -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Dion-Daniels', 'Dion_Daniels')">Download Dion Daniels's Certificate</button>
-        <div class="certificate-container" id="cert-Dion-Daniels">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Dion Daniels</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Manuel Garcia -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Manuel-Garcia', 'Manuel_Garcia')">Download Manuel Garcia's Certificate</button>
-        <div class="certificate-container" id="cert-Manuel-Garcia">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Manuel Garcia</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Juliane Pasos -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Juliane-Pasos', 'Juliane_Pasos')">Download Juliane Pasos's Certificate</button>
-        <div class="certificate-container" id="cert-Juliane-Pasos">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Juliane Pasos</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Lloyd Augustine -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Lloyd-Augustine', 'Lloyd_Augustine')">Download Lloyd Augustine's Certificate</button>
-        <div class="certificate-container" id="cert-Lloyd-Augustine">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Lloyd Augustine</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for David Robertson -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-David-Robertson', 'David_Robertson')">Download David Robertson's Certificate</button>
-        <div class="certificate-container" id="cert-David-Robertson">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">David Robertson</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Lorenzo Maldonado -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Lorenzo-Maldonado', 'Lorenzo_Maldonado')">Download Lorenzo Maldonado's Certificate</button>
-        <div class="certificate-container" id="cert-Lorenzo-Maldonado">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Lorenzo Maldonado</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Alex Moralez -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Alex-Moralez', 'Alex_Moralez')">Download Alex Moralez's Certificate</button>
-        <div class="certificate-container" id="cert-Alex-Moralez">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Alex Moralez</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Ainsley Ferguson -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Ainsley-Ferguson', 'Ainsley_Ferguson')">Download Ainsley Ferguson's Certificate</button>
-        <div class="certificate-container" id="cert-Ainsley-Ferguson">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Ainsley Ferguson</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Monica Hua -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Monica-Hua', 'Monica_Hua')">Download Monica Hua's Certificate</button>
-        <div class="certificate-container" id="cert-Monica-Hua">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Monica Hua</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Fay Ita Garnett -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Fay-Ita-Garnett', 'Fay_Ita_Garnett')">Download Fay Ita Garnett's Certificate</button>
-        <div class="certificate-container" id="cert-Fay-Ita-Garnett">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Fay Ita Garnett</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Melissa Robinson -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Melissa-Robinson', 'Melissa_Robinson')">Download Melissa Robinson's Certificate</button>
-        <div class="certificate-container" id="cert-Melissa-Robinson">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Melissa Robinson</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Jeovan Iglesias -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Jeovan-Iglesias', 'Jeovan_Iglesias')">Download Jeovan Iglesias's Certificate</button>
-        <div class="certificate-container" id="cert-Jeovan-Iglesias">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Jeovan Iglesias</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Certificate for Adrian Avilez -->
-    <div class="certificate-wrapper">
-        <button class="download-btn" onclick="downloadCertificate('cert-Adrian-Avilez', 'Adrian_Avilez')">Download Adrian Avilez's Certificate</button>
-        <div class="certificate-container" id="cert-Adrian-Avilez">
-            <div class="certificate-border">
-                <div class="certificate-inner-border">
-                    <img class="certificate-logo" src="img/UB-Logo.png" alt="UB Logo">
-                    <div class="certificate-title">Certificate of Participation</div>
-                    <div class="certificate-body">
-                        This is to certify that<br>
-                        <span class="certificate-name">Adrian Avilez</span><br>
-                        has successfully completed the training entitled<br>
-                        <b>ICT Google Workspace Training with Gemini AI</b><br>
-                        held on <b>September 11th, 2026</b>.
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="trainer-signature">
-                            <img src="img/sign3.PNG" alt="Trainer signature">
-                            <div class="trainer-line"><span class="trainer-label">Trainer:</span> Manuel Medina Jr.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
+<div class="certificates-grid" aria-live="polite"></div>
 
 </body>
 </html>
