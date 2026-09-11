@@ -321,6 +321,18 @@
                     .trim();
             }
 
+            function parseParticipantRow(line) {
+                const match = line.match(/^(.+?),\s*"([^"]+)"\s*$/);
+                if (!match) {
+                    return { name: normalizeName(line), date: '' };
+                }
+
+                return {
+                    name: normalizeName(match[1]),
+                    date: match[2].trim()
+                };
+            }
+
             function getCertificateId(name) {
                 return name
                     .toLowerCase()
@@ -332,7 +344,7 @@
                 return /s$/i.test(name) ? `${name}'` : `${name}'s`;
             }
 
-            function buildCertificate(name) {
+            function buildCertificate(name, dateText) {
                 const certId = getCertificateId(name);
                 const wrapper = document.createElement('div');
                 wrapper.className = 'certificate-wrapper';
@@ -356,7 +368,7 @@
                                 <span class="certificate-name">${name}</span><br>
                                 has successfully completed the training entitled<br>
                                 <b>ICT Google Workspace Training with Gemini AI</b><br>
-                                held on <b>September 11th, 2026</b>.
+                                held on <b>${dateText || 'Friday, September 11, 2026'}</b>.
                             </div>
                             <div class="certificate-footer">
                                 <div class="trainer-signature">
@@ -376,20 +388,24 @@
 
             async function loadCertificates() {
                 try {
-                    const response = await fetch('data/ParticipantList26S1.csv');
+                    const response = await fetch('data/ParticipantList.csv');
                     if (!response.ok) {
                         throw new Error(`CSV fetch failed: ${response.status}`);
                     }
 
                     const csvText = await response.text();
-                    const uniqueNames = [...new Set(
+                    const participants = [...new Map(
                         csvText
                             .split(/\r?\n/)
-                            .map(normalizeName)
+                            .map(line => line.trim())
                             .filter(Boolean)
-                    )];
+                            .map(line => {
+                                const { name, date } = parseParticipantRow(line);
+                                return [name, date];
+                            })
+                    ).entries()].map(([name, date]) => ({ name, date }));
 
-                    certificates = uniqueNames.map(buildCertificate);
+                    certificates = participants.map(({ name, date }) => buildCertificate(name, date));
                     grid.innerHTML = '';
                     certificates.forEach(({ wrapper }) => grid.appendChild(wrapper));
                     renderResults();
