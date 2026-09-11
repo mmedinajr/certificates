@@ -280,13 +280,26 @@
     <!-- html2canvas CDN for image download -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script>
+        function sanitizeFileName(name) {
+            return name
+                .trim()
+                .replace(/[\\/:*?"<>|]/g, '')
+                .replace(/\s+/g, '_')
+                .replace(/_+/g, '_');
+        }
+
         function downloadCertificate(id, name) {
-            // Select only the certificate-border for download
-            const certDiv = document.querySelector(`#${id} .certificate-border`);
+            const certDiv = document.getElementById(id)?.querySelector('.certificate-border');
+            if (!certDiv) {
+                console.error(`Certificate element not found: ${id}`);
+                return;
+            }
+
             const scale = 2;
             html2canvas(certDiv, { scale }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = name + '_Certificate.png';
+                const safeName = sanitizeFileName(name) || 'certificate';
+                link.download = safeName + '_Certificate.png';
                 link.href = canvas.toDataURL();
                 link.click();
             });
@@ -328,7 +341,7 @@
                 button.type = 'button';
                 button.className = 'download-btn';
                 button.textContent = `Download ${getPossessiveName(name)} Certificate`;
-                button.addEventListener('click', () => downloadCertificate(certId, certId));
+                button.addEventListener('click', () => downloadCertificate(`cert-${certId}`, name));
 
                 const container = document.createElement('div');
                 container.className = 'certificate-container';
